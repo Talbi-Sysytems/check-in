@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your QR Code</title>
+  <link rel="stylesheet" href="event.css">
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Your QR Code</h1>
+    <p id="name-display"></p>
+    <div id="qrcode"></div> <!-- This will display the QR code -->
+
+    <button onclick="printQRCode()">Print QR Code</button>
+    <button onclick="goBack()">Go Back</button>
+  </div>
+
+  <script>
+    // Extract the name from the URL query parameters
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name');
+
+    // Display the name on the page
+    document.getElementById('name-display').textContent = `Name: ${decodeURIComponent(name)}`;
+
+    // Generate the QR code
+    new QRCode(document.getElementById("qrcode"), {
+      text: name,
+      width: 128,
+      height: 128,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+
+    // Function to print the QR code
+    function printQRCode() {
+      window.print();
+    }
+
+    // Function to go back to the previous page
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aanmeld System</title>
+  <link rel="stylesheet" href="event.css">
+</head>
+<body>
+
+  <!-- Check-in Form -->
+  <div class="container">
+    <h1>Aanmeld System</h1>
+    <form id="checkin-form">
+      <label for="name">Naam</label>
+      <input type="text" id="name" name="name" required>
+      <button type="button" onclick="submitForm()">Verzenden</button>
+    </form>
+  </div>
+
+  <script>
+    function submitForm() {
+      const nameInput = document.getElementById('name');
+      const name = nameInput.value.trim();
+
+      if (name === '') {
+        alert('Please enter a valid name.');
+        return;
+      }
+
+      // Send the name to Google Sheets
+      fetch('https://script.google.com/macros/s/AKfycby1D3YWG0_Hl5sjYhV9O3jCwfp4qIk3CLhMaXDx2S6JUf3BHJnzQX3wXLfbhe80Htbryw/exec?name=' + encodeURIComponent(name))
+        .then(response => response.json())
+        .then(data => console.log('Data sent to API:', data))
+        .catch(error => console.error('Error:', error));
+
+      // Redirect to barcode page with the name in the query string
+      window.location.href = `barcode.html?name=${encodeURIComponent(name)}`;
+    }
+  </script>
+</body>
+</html>
