@@ -200,13 +200,188 @@
   </div>
 
 <script>
+
+  // ✅ Add your blocked names / swear words here
+const blockedNames = [
+
+  // =======================================
+  // BASIC SWEAR WORDS (core roots)
+  // =======================================
+  "fuck","fucks","fucked","fucking","fuk","fuking","fukk","f*ck","f**k",
+  "shit","shits","shitted","shitting","sh1t","shiit","shyt","bullshit","bullshitting",
+  "bitch","bitches","bich","biatch","b!tch","b1tch",
+  "ass","asses","asshole","assholes","ashole","azzhole","a55hole","arse","arsehole",
+  "dumbass","jackass","smartass","lameass","fatass",
+  "bastard","bastards",
+  "dick","dicks","d1ck","dik","dicc","d!ck","d*ck",
+  "cock","c0ck","kok","kock",
+  "piss","pissed","pissing",
+  "crap","crappy","craphead",
+  "slut","sluts","sluttish","slvt",
+  "whore","whores","wh0re","h0e","hoe",
+
+  // =======================================
+  // INSULTS
+  // =======================================
+  "idiot","idiots","moron","morons","stupid","stupidity","dumb","dumber","dumbest",
+  "retard","retarded","r3tard","r3tarded",
+  "loser","losers","failure","fail",
+  "coward","cowards",
+  "freak","freaks","weirdo","weirdos",
+  "clown","clowns","buffoon","dork","jerk","jerks",
+  "garbage","trash","pathetic","worthless","useless",
+  "subhuman","degenerate","parasite","vermin",
+
+  // =======================================
+  // EXTREMIST NAMES (allowed)
+  // =======================================
+  "hitler","adolf hitler",
+  "mussolini","benito mussolini",
+  "franco","francisco franco",
+  "himmler","goebbels","goering","hess",
+  "stalin","joseph stalin",
+  "mao","mao zedong",
+  "lenin","vladimir lenin",
+  "pol pot","kim jong un","kim jong il",
+  "osama bin laden","bin laden",
+
+  // =======================================
+  // EXTREMIST GROUPS (allowed)
+  // =======================================
+  "nazi","nazis","neo-nazi","neonazi","stormfront",
+  "kkk","ku klux klan","white supremacy","white supremacist","supremacist",
+  "fascist","fascism",
+
+  // =======================================
+  // VIOLENT GROUPS / TERROR GROUPS (allowed)
+  // =======================================
+  "isis","isil","daesh",
+  "al qaeda","al-qaeda",
+  "boko haram",
+  "taliban",
+  "hamas military wing",
+  "hezbollah military wing",
+
+  // =======================================
+  // CRIMINALS / MASS KILLERS (allowed)
+  // =======================================
+  "jeffrey dahmer","ted bundy","john wayne gacy","zodiac killer",
+  "cho seung hui","eric harris","dylan klebold",
+  "school shooter","mass shooter",
+
+  // =======================================
+  // THREATS (NON-SLUR, NON-GRAPHIC)
+  // =======================================
+  "kill yourself","kys","kms",
+  "unalive yourself","end yourself",
+  "go die","you should die",
+  "i will kill you","im gonna kill you",
+  "hope you die",
+  "i will hurt you","i will find you",
+
+  // =======================================
+  // Evasion spellings (swears)
+  // =======================================
+  "fck","f@ck","f.u.c.k","fucc","fuuuuck","fffuck",
+  "sh1t","shyt","sh!!t","$hit",
+  "b1tch","b!tch","b*tch","b!+ch",
+  "d1ck","d!ck","d!cc","d1cc",
+  "a55hole","@sshole","azzhole",
+  "wh0re","w.h.o.r.e","h0e","h03",
+
+  // =======================================
+  // Spaced-out variants
+  // =======================================
+  "f u c k","s h i t","b i t c h","a s s h o l e","d i c k",
+  "h i t l e r","n a z i","k k k",
+
+  // =======================================
+  // SCAM / PHISHING TERMS
+  // =======================================
+  "click here","free robux","free vbucks","free nitro","nitro generator",
+  "telegram bot","follow me on telegram",
+  "crypto scam","bitcoin scam","free bitcoin","get rich fast",
+  "earn $1000","rapid money","double your money",
+  "giveaway scam","phishing","phish link",
+
+  // =======================================
+  // SEXUAL CONTENT (non-graphic, allowed)
+  // =======================================
+  "porn","pornhub","xxx","sex video","sexual",
+  "nsfw","lewd","nude","nudes","send nudes","horny",
+  "stripper","escort","fetish",
+
+  // =======================================
+  // DRUG REFERENCES (safe)
+  // =======================================
+  "cocaine","heroin","meth","crystal meth","lsd","mdma","ecstasy",
+  "drug dealer","drug lord",
+
+  // =======================================
+  // VIOLENCE TERMS (safe)
+  // =======================================
+  "bomb","bombing","explode","explosion",
+  "shoot","shooter","gunman","massacre",
+  "stab","stabbing","assault","torture",
+
+  // =======================================
+  // Racist group names (NO slurs)
+  // =======================================
+  "white nationalist","skinhead","neo nazi","alt right",
+
+  // =======================================
+  // EXTREME TOXIC PHRASES (no slurs)
+  // =======================================
+  "you are worthless","nobody likes you","you should disappear",
+  "everyone hates you","you are a mistake",
+  "die alone","you disgust me","crawl in a hole",
+
+  // =======================================
+  // Common troll spam
+  // =======================================
+  "sigma male course","alpha brain course",
+  "matrix escape program","tate course","get rich program",
+  "botnet","ddos tool","code injector","rat tool",
+  "hacker program","account stealer",
+
+  // =======================================
+  // Misc offensive phrases
+  // =======================================
+  "gas chamber","execution","brutal violence",
+  "bloodbath","manhunt",
+
+  // =======================================
+  // More insults / toxic words
+  // =======================================
+  "troll","trolling","flaming","toxic","ragequit",
+  "goblin","ogre","beast","monster",
+  "creep","creepy","psychopath","sociopath",
+  "lunatic","maniac","demonic","evil",
+  "dirtbag","scumbag","airhead","bonehead",
+  "blockhead","nincompoop","simpleton","halfwit"
+];
+
+  function containsBlockedWord(name) {
+    const lower = name.toLowerCase();
+    return blockedNames.some(bad => lower.includes(bad));
+  }
+
   document.getElementById('signup-form').addEventListener('submit', function(event) {
     event.preventDefault();
 
     document.getElementById('name-error').style.display = 'none';
     var name = document.getElementById('name').value.trim();
 
+    // ❗ Minimum length check
     if (name.length < 2) {
+      document.getElementById('name-error').innerText = "Please enter a valid name";
+      document.getElementById('name-error').style.display = 'block';
+      return;
+    }
+
+    // ❗ Blocked names / swearwords check
+    if (containsBlockedWord(name)) {
+      document.getElementById('name-error').innerText = "This name is not allowed";
       document.getElementById('name-error').style.display = 'block';
       return;
     }
@@ -218,7 +393,7 @@
     // Clear old QR
     document.getElementById('qrcode').innerHTML = '';
 
-    // ✅ Generate QR using QRCode.js
+    // Generate QR
     setTimeout(() => {
       new QRCode(document.getElementById('qrcode'), {
         text: qrData,
@@ -235,7 +410,7 @@
       document.getElementById('qr-code-container').scrollIntoView({ behavior: 'smooth' });
     }, 300);
 
-    // ✅ Send to Google Apps Script
+    // Send to Google Apps Script
     fetch('https://script.google.com/macros/s/AKfycbzrpGv2WEhNFvLyFoAS6fdVrZC2mpKupoL_muT-jkzVX6bNiJy9mbgXa1C__5GnGyHrUA/exec', {
       method: 'POST',
       headers: {
